@@ -5,8 +5,6 @@ import {
   ElementRef,
   HostListener,
   EventEmitter,
-  OnChanges,
-  SimpleChanges,
 } from '@angular/core';
 import { ISprkDropdownChoice } from './sprk-dropdown.interfaces';
 
@@ -128,7 +126,7 @@ import { ISprkDropdownChoice } from './sprk-dropdown.interfaces';
     </div>
   `,
 })
-export class SprkDropdownComponent implements OnChanges {
+export class SprkDropdownComponent {
   /**
    * The variant of the Dropdown to render.
    */
@@ -235,17 +233,6 @@ export class SprkDropdownComponent implements OnChanges {
    * @ignore
    */
   constructor(public ref: ElementRef) {}
-
-  /**
-   * @ignore
-   */
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.choices) {
-      if (this.dropdownType === 'informational') {
-        this._updateTriggerTextWithDefaultValue();
-      }
-    }
-  }
 
   /**
    * @ignore
@@ -372,28 +359,5 @@ export class SprkDropdownComponent implements OnChanges {
     }
 
     return classArray.join(' ');
-  }
-
-  /**
-   * Update trigger text with default choice value
-   */
-  protected _updateTriggerTextWithDefaultValue(): void {
-    const defaultChoice = this._lookupDefaultChoice();
-
-    if (defaultChoice) {
-      // Deactivate previously activated choices
-      this.clearActiveChoices();
-      // Mark default choice as active
-      defaultChoice.active = true;
-      // Update trigger text
-      this.triggerText = defaultChoice.value;
-    }
-  }
-
-  /**
-   * Lookup choice with specified `isDefault: true` field
-   */
-  protected _lookupDefaultChoice(): ISprkDropdownChoice | null {
-    return this.choices.find((choice) => choice.isDefault) || null;
   }
 }
