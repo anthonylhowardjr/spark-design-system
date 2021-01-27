@@ -11,7 +11,7 @@ export interface ISprkBigNavLink {
    */
   text: string;
   /**
-   * The `href` value for the link..
+   * The `href` value for the link.
    */
   href?: string;
   /**
