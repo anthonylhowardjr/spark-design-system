@@ -4,7 +4,9 @@ import {
   Output,
   ElementRef,
   HostListener,
-  EventEmitter
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { ISprkDropdownChoice } from './sprk-dropdown.interfaces';
 
@@ -26,19 +28,18 @@ import { ISprkDropdownChoice } from './sprk-dropdown.interfaces';
           [analyticsString]="analyticsString"
           aria-haspopup="listbox"
           href="#"
-          [attr.aria-label]="triggerText ? triggerText : (screenReaderText || 'Choose One')"
+          [attr.aria-label]="
+            triggerText ? triggerText : screenReaderText || 'Choose One'
+          "
         >
           <span [ngClass]="getTriggerTextClasses()">{{ triggerText }}</span>
           <span class="sprk-u-ScreenReaderText">{{ screenReaderText }}</span>
           <sprk-icon
             [iconType]="triggerIconType"
-            additionalClasses="sprk-u-mls {{
-              additionalIconClasses
-            }}"
+            additionalClasses="sprk-u-mls {{ additionalIconClasses }}"
           ></sprk-icon>
         </a>
       </div>
-
       <div [ngClass]="getClasses()" *ngIf="isOpen">
         <div
           class="sprk-c-Dropdown__header"
@@ -47,7 +48,6 @@ import { ISprkDropdownChoice } from './sprk-dropdown.interfaces';
           <h2 class="sprk-c-Dropdown__title sprk-b-TypeBodyTwo" *ngIf="title">
             {{ title }}
           </h2>
-
           <a
             sprkLink
             *ngIf="selector && !title"
@@ -74,11 +74,10 @@ import { ISprkDropdownChoice } from './sprk-dropdown.interfaces';
             ></sprk-icon>
           </a>
         </div>
-
         <ul
           class="sprk-c-Dropdown__links"
           role="listbox"
-          [attr.aria-label]="title ? title : (screenReaderText || 'My Choices')"
+          [attr.aria-label]="title ? title : screenReaderText || 'My Choices'"
         >
           <li
             class="sprk-c-Dropdown__item"
@@ -94,6 +93,7 @@ import { ISprkDropdownChoice } from './sprk-dropdown.interfaces';
                 sprkLink
                 variant="unstyled"
                 [attr.href]="choice.href"
+                [routerLink]="choice.routerLink"
                 [analyticsString]="choice.analyticsString"
                 [ngClass]="{
                   'sprk-c-Dropdown__link': true,
@@ -108,6 +108,7 @@ import { ISprkDropdownChoice } from './sprk-dropdown.interfaces';
                 sprkLink
                 variant="unstyled"
                 [attr.href]="choice.href"
+                [routerLink]="choice.routerLink"
                 [analyticsString]="choice.analyticsString"
                 [ngClass]="{
                   'sprk-c-Dropdown__link': true,
@@ -125,9 +126,9 @@ import { ISprkDropdownChoice } from './sprk-dropdown.interfaces';
         <ng-content select="[sprkDropdownFooter]"></ng-content>
       </div>
     </div>
-  `
+  `,
 })
-export class SprkDropdownComponent {
+export class SprkDropdownComponent implements OnChanges {
   /**
    * The variant of the Dropdown to render.
    */
@@ -196,7 +197,7 @@ export class SprkDropdownComponent {
   selector: string;
   /**
    * Expects an array of
-   * [ISprkDropdownChoice](https://github.com/sparkdesignsystem/spark-design-system/tree/master/src/angular/projects/spark-angular/src/lib/components/sprk-dropdown/sprk-dropdown.interfaces.ts)
+   * [ISprkDropdownChoice](https://github.com/sparkdesignsystem/spark-design-system/blob/main/angular/projects/spark-angular/src/lib/components/sprk-dropdown/sprk-dropdown.interfaces.ts)
    *  objects.
    */
   @Input()
@@ -234,6 +235,18 @@ export class SprkDropdownComponent {
    * @ignore
    */
   constructor(public ref: ElementRef) {}
+
+  /**
+   * @ignore
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.choices) {
+      if (this.dropdownType === 'informational') {
+        this._updateTriggerTextWithDefaultValue();
+      }
+    }
+  }
+
   /**
    * @ignore
    */
@@ -268,7 +281,7 @@ export class SprkDropdownComponent {
   choiceClick(event) {
     this.clearActiveChoices();
     const choiceIndex = event.currentTarget.getAttribute(
-      'data-sprk-dropdown-choice-index'
+      'data-sprk-dropdown-choice-index',
     );
     const clickedChoice = this.choices[choiceIndex];
     if (
@@ -286,7 +299,7 @@ export class SprkDropdownComponent {
    */
   setActiveChoice(event): void {
     const choiceIndex = event.currentTarget.getAttribute(
-      'data-sprk-dropdown-choice-index'
+      'data-sprk-dropdown-choice-index',
     );
     this.choices[choiceIndex]['active'] = true;
   }
@@ -295,7 +308,7 @@ export class SprkDropdownComponent {
    */
   updateTriggerText(event): void {
     const choiceIndex = event.currentTarget.getAttribute(
-      'data-sprk-dropdown-choice-index'
+      'data-sprk-dropdown-choice-index',
     );
     this.triggerText = this.choices[choiceIndex]['value'];
   }
@@ -323,7 +336,7 @@ export class SprkDropdownComponent {
     const classArray: string[] = ['sprk-c-Dropdown'];
 
     if (this.additionalClasses) {
-      this.additionalClasses.split(' ').forEach(className => {
+      this.additionalClasses.split(' ').forEach((className) => {
         classArray.push(className);
       });
     }
@@ -338,7 +351,7 @@ export class SprkDropdownComponent {
     const classArray: string[] = ['sprk-c-Dropdown__trigger'];
 
     if (this.additionalTriggerClasses) {
-      this.additionalTriggerClasses.split(' ').forEach(className => {
+      this.additionalTriggerClasses.split(' ').forEach((className) => {
         classArray.push(className);
       });
     }
@@ -353,11 +366,34 @@ export class SprkDropdownComponent {
     const classArray: string[] = [''];
 
     if (this.additionalTriggerTextClasses) {
-      this.additionalTriggerTextClasses.split(' ').forEach(className => {
+      this.additionalTriggerTextClasses.split(' ').forEach((className) => {
         classArray.push(className);
       });
     }
 
     return classArray.join(' ');
+  }
+
+  /**
+   * Update trigger text with default choice value
+   */
+  protected _updateTriggerTextWithDefaultValue(): void {
+    const defaultChoice = this._lookupDefaultChoice();
+
+    if (defaultChoice) {
+      // Deactivate previously activated choices
+      this.clearActiveChoices();
+      // Mark default choice as active
+      defaultChoice.active = true;
+      // Update trigger text
+      this.triggerText = defaultChoice.value;
+    }
+  }
+
+  /**
+   * Lookup choice with specified `isDefault: true` field
+   */
+  protected _lookupDefaultChoice(): ISprkDropdownChoice | null {
+    return this.choices.find((choice) => choice.isDefault) || null;
   }
 }

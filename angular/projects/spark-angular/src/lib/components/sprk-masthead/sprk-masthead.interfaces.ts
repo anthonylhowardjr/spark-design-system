@@ -11,12 +11,13 @@ export interface ISprkBigNavLink {
    */
   text: string;
   /**
-   * The `href` value for the link.
-   * If omitted, the href will
-   * be set to `#` by the `SprkLink`
-   * component.
+   * The `href` value for the link..
    */
   href?: string;
+  /**
+   * The `routerLink` value for the link.
+   */
+  routerLink?: string;
   /**
    * The value supplied will be assigned to the
    * `data-analytics` attribute on the link
@@ -50,11 +51,12 @@ export interface ISprkNarrowNavLink {
   text: string;
   /**
    * The `href` value for the link.
-   * If omitted, the href will
-   * be set to `#` by the `SprkLink`
-   * component.
    */
   href?: string;
+  /**
+   * The `routerLink` value for the link.
+   */
+  routerLink?: string;
   /**
    * The value supplied will be assigned to the
    * `data-analytics` attribute on the link
@@ -83,11 +85,12 @@ export interface ISprkNarrowNavLink {
     text: string;
     /**
      * The `href` value for the link.
-     * If omitted, the href will
-     * be set to `#` by the `SprkLink`
-     * component.
      */
     href?: string;
+    /**
+     * The `routerLink` value for the link.
+     */
+    routerLink?: string;
     /**
      * The value supplied will be assigned to the
      * `data-analytics` attribute on the link
@@ -144,7 +147,7 @@ export interface ISprkNarrowSelector {
     /**
      * The `href` for the link.
      */
-    href: string;
+    href?: string;
     /**
      * The value supplied will be assigned to the
      * `data-analytics` attribute on the link.
@@ -152,5 +155,9 @@ export interface ISprkNarrowSelector {
      * library to capture data.
      */
     analyticsString?: string;
+    /**
+     * The `href` for the link.
+     */
+    routerLink?: string;
   };
 }

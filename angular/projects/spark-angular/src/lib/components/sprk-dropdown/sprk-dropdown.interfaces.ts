@@ -19,6 +19,10 @@ export interface ISprkDropdownChoice {
    */
   href?: string;
   /**
+   * The `routerLink` value for the link.
+   */
+  routerLink?: string;
+  /**
    * The value supplied will be assigned to the
    * `data-analytics` attribute on the link
    * Intended for an outside
