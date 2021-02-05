@@ -76,7 +76,7 @@ const Layout = ({ children, initialContext, hasSideBar, location }) => {
               Skip to Main Content
             </SprkLink>
           </div>
-          <aside className="sprk-u-BackgroundColor--black sprk-u-AbsoluteCenter sprk-u-pam">
+          <div className="sprk-u-BackgroundColor--black sprk-u-AbsoluteCenter sprk-u-pam">
             <p className="sprk-u-Color--white">
               Designs launching
               <span className="sprk-u-FontWeight--bold sprk-u-mas">before</span>
@@ -90,7 +90,7 @@ const Layout = ({ children, initialContext, hasSideBar, location }) => {
               . Questions? Please contact your Product Owner or Experience
               Director.
             </p>
-          </aside>
+          </div>
           <Header
             context={context}
             setContext={setContext}

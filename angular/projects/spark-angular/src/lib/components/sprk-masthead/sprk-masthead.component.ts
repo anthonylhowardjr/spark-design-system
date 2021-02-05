@@ -63,24 +63,8 @@ import {
         <div
           class="sprk-c-Masthead__branding sprk-o-Stack__item sprk-o-Stack__item--center-column@xxs"
         >
-          <a
-            sprkLink
-            *ngIf="!logoRouterLink"
-            [attr.href]="logoHref"
-            variant="unstyled"
-          >
+          <a sprkLink [attr.href]="logoHref" variant="unstyled">
             <ng-content select="[logo-slot]"></ng-content>
-            <span class="sprk-u-ScreenReaderText">{{
-              logoLinkScreenReaderText
-            }}</span>
-          </a>
-          <a
-            sprkLink
-            *ngIf="logoRouterLink"
-            [routerLink]="logoRouterLink"
-            variant="unstyled"
-          >
-            <ng-content select="[logo-slot-router]"></ng-content>
             <span class="sprk-u-ScreenReaderText">{{
               logoLinkScreenReaderText
             }}</span>
@@ -140,22 +124,11 @@ import {
               </div>
               <div *ngIf="!link.subNav">
                 <a
-                  *ngIf="!link.routerLink"
                   sprkLink
                   variant="simple"
                   [analyticsString]="link.analyticsString"
                   class="sprk-c-Masthead__link sprk-c-Masthead__link--big-nav"
                   [attr.href]="link.href"
-                >
-                  {{ link.text }}
-                </a>
-                <a
-                  *ngIf="link.routerLink"
-                  sprkLink
-                  variant="simple"
-                  [analyticsString]="link.analyticsString"
-                  class="sprk-c-Masthead__link sprk-c-Masthead__link--big-nav"
-                  [routerLink]="link.routerLink"
                 >
                   {{ link.text }}
                 </a>
@@ -195,21 +168,10 @@ import {
             sprkDropdownFooter
           >
             <a
-              *ngIf="!narrowSelector['footer'].routerLink"
               sprkLink
               variant="unstyled"
               [analyticsString]="narrowSelector['footer'].analyticsString"
               [attr.href]="narrowSelector['footer'].href"
-              class="sprk-c-Button sprk-c-Button--tertiary"
-            >
-              {{ narrowSelector['footer'].text }}
-            </a>
-            <a
-              *ngIf="narrowSelector['footer'].routerLink"
-              sprkLink
-              variant="unstyled"
-              [analyticsString]="narrowSelector['footer'].analyticsString"
-              [routerLink]="narrowSelector['footer'].routerLink"
               class="sprk-c-Button sprk-c-Button--tertiary"
             >
               {{ narrowSelector['footer'].text }}
@@ -233,31 +195,10 @@ import {
                     *ngFor="let subNavLink of narrowLink.subNav"
                   >
                     <a
-                      *ngIf="!subNavLink.routerLink"
                       sprkLink
                       variant="unstyled"
                       class="sprk-c-MastheadAccordion__summary"
                       [attr.href]="subNavLink.href"
-                      [analyticsString]="subNavLink.analyticsString"
-                    >
-                      <sprk-icon
-                        [iconType]="subNavLink.leadingIcon"
-                        additionalClasses="
-                          sprk-c-Icon--filled-current-color
-                          sprk-c-Icon--stroke-current-color
-                          sprk-c-Icon--xl
-                          sprk-u-mrs
-                        "
-                        *ngIf="subNavLink.leadingIcon"
-                      ></sprk-icon>
-                      {{ subNavLink.text }}
-                    </a>
-                    <a
-                      *ngIf="subNavLink.routerLink"
-                      sprkLink
-                      variant="unstyled"
-                      class="sprk-c-MastheadAccordion__summary"
-                      [routerLink]="subNavLink.routerLink"
                       [analyticsString]="subNavLink.analyticsString"
                     >
                       <sprk-icon
@@ -284,33 +225,10 @@ import {
                 }"
               >
                 <a
-                  *ngIf="!narrowLink.routerLink"
                   sprkLink
                   variant="unstyled"
                   class="sprk-c-MastheadAccordion__summary"
                   [attr.href]="narrowLink.href"
-                  [analyticsString]="narrowLink.analyticsString"
-                >
-                  <span class="sprk-c-MastheadAccordion__heading">
-                    <sprk-icon
-                      [iconType]="narrowLink.leadingIcon"
-                      additionalClasses="
-                        sprk-c-Icon--filled-current-color
-                        sprk-c-Icon--stroke-current-color
-                        sprk-c-Icon--xl
-                        sprk-u-mrs
-                      "
-                      *ngIf="narrowLink.leadingIcon"
-                    ></sprk-icon>
-                    {{ narrowLink.text }}
-                  </span>
-                </a>
-                <a
-                  *ngIf="narrowLink.routerLink"
-                  sprkLink
-                  variant="unstyled"
-                  class="sprk-c-MastheadAccordion__summary"
-                  [routerLink]="narrowLink.routerLink"
                   [analyticsString]="narrowLink.analyticsString"
                 >
                   <span class="sprk-c-MastheadAccordion__heading">
@@ -349,18 +267,10 @@ export class SprkMastheadComponent implements AfterContentInit {
   }
 
   /**
-   * The `href` value of the logo.
+   *  The `href` value of the logo.
    */
   @Input()
   logoHref = '/';
-  /**
-   * The `routerLink` value of the logo. Use this to
-   * have a routerLink instead of a standard link for the logo.
-   * Requires use of `logo-slot-router`
-   * on the logo element.
-   */
-  @Input()
-  logoRouterLink;
   /**
    * The value supplied will be used as
    * screen reader text that is visually hidden
@@ -391,7 +301,7 @@ export class SprkMastheadComponent implements AfterContentInit {
   additionalNarrowNavClasses: string;
   /**
    * Expects an array of
-   * [ISprkNarrowNavLink](https://github.com/sparkdesignsystem/spark-design-system/blob/main/angular/projects/spark-angular/src/lib/components/sprk-masthead/sprk-masthead.interfaces.ts)
+   * [ISprkNarrowNavLink](https://github.com/sparkdesignsystem/spark-design-system/blob/master/angular/projects/spark-angular/src/lib/components/sprk-masthead/sprk-masthead.interfaces.ts)
    *  to be
    * represented in the narrow nav element
    * of the Masthead component.
@@ -416,7 +326,7 @@ export class SprkMastheadComponent implements AfterContentInit {
   idString: string;
   /**
    * Expects an array of
-   * [ISprkBigNavLink](https://github.com/sparkdesignsystem/spark-design-system/blob/main/angular/projects/spark-angular/src/lib/components/sprk-masthead/sprk-masthead.interfaces.ts)
+   * [ISprkBigNavLink](https://github.com/sparkdesignsystem/spark-design-system/blob/master/angular/projects/spark-angular/src/lib/components/sprk-masthead/sprk-masthead.interfaces.ts)
    *  to be
    * used to create the Big Navigation of
    * the Masthead component.
@@ -424,7 +334,7 @@ export class SprkMastheadComponent implements AfterContentInit {
   @Input()
   bigNavLinks: ISprkBigNavLink[];
   /**
-   * Expects a [ISprkNarrowSelector](https://github.com/sparkdesignsystem/spark-design-system/blob/main/angular/projects/spark-angular/src/lib/components/sprk-masthead/sprk-masthead.interfaces.ts)
+   * Expects a [ISprkNarrowSelector](https://github.com/sparkdesignsystem/spark-design-system/blob/master/angular/projects/spark-angular/src/lib/components/sprk-masthead/sprk-masthead.interfaces.ts)
    *  object that
    * represents dropdown choices inside the dropdown
    * rendered in the Narrow Navigation.

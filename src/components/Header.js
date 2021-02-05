@@ -79,16 +79,9 @@ const Header = ({ setContext }) => {
     element: Link,
   }));
 
-  const usingSparkGuides = useUsingSparkData().guides.map((page) => ({
-    text: page.node.frontmatter.title,
-    to: `/using-spark/guides/${page.node.parent.name}`,
-    element: Link,
-  }));
-
-  const usingSparkPages = usingSparkFoundations.concat(
-    usingSparkGuides,
-    usingSparkComponents,
+  const usingSparkPages = usingSparkComponents.concat(
     usingSparkExamples,
+    usingSparkFoundations,
   );
 
   const principlePages = usePrincipleSparkData().map((page) => ({

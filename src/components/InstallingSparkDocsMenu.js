@@ -7,9 +7,9 @@ const InstallingSparkDocsMenu = () => {
   const pages = useInstallingSparkData();
 
   return (
-    <div className="docs-menu__collection">
+    <>
+      <h3 className="docs-menu__heading">Installing Spark</h3>
       <nav aria-label="Installing Spark">
-        <h3 className="docs-menu__heading">Installing Spark</h3>
         <ul className="docs-menu__collection">
           {pages.map((page) => (
             <li
@@ -27,7 +27,7 @@ const InstallingSparkDocsMenu = () => {
           ))}
         </ul>
       </nav>
-    </div>
+    </>
   );
 };
 

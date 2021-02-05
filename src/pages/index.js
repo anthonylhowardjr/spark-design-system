@@ -3,7 +3,7 @@ import {
   SprkStack,
   SprkStackItem,
   SprkCard,
-  SprkLink,
+  SprkButton,
 } from '@sparkdesignsystem/spark-react';
 import Layout from '../components/layouts/Layout';
 import componentsMedia from '../images/components.svg';
@@ -27,7 +27,7 @@ const teaserDesigners = {
   media: {
     href: '/principles/design-principles',
     mediaLinkElement: 'a',
-    imgAlt: 'Go to Designer Basics',
+    imgAlt: 'An illustration of someone hands drawing on a tablet.',
     imgSrc: designersMedia,
     mediaVariant: 'img',
   },
@@ -52,7 +52,7 @@ const teaserDevelopers = {
   media: {
     href: '/installing-spark',
     mediaLinkElement: 'a',
-    imgAlt: 'Go to Developer Basics',
+    imgAlt: 'An illustration of a computer with code displayed.',
     imgSrc: developersMedia,
     mediaVariant: 'img',
   },
@@ -78,7 +78,7 @@ const teaserComponents = {
   media: {
     href: '/using-spark/components/button',
     mediaLinkElement: 'a',
-    imgAlt: 'Go to Components',
+    imgAlt: 'An illustration of a graph paper and a magnifying glass.',
     imgSrc: componentsMedia,
     mediaVariant: 'img',
   },
@@ -102,7 +102,7 @@ const teaserFoundations = {
   media: {
     href: '/using-spark/foundations/color',
     mediaLinkElement: 'a',
-    imgAlt: 'Go to Foundations',
+    imgAlt: 'Decorative illustrations of type and color.',
     imgSrc: foundationsMedia,
     mediaVariant: 'img',
   },
@@ -125,7 +125,7 @@ const teaserUtils = {
   media: {
     href: '/using-spark/foundations/css-utilities',
     mediaLinkElement: 'a',
-    imgAlt: 'Go to Utilities',
+    imgAlt: 'Decorative illustrations of pages.',
     imgSrc: utilitiesMedia,
     mediaVariant: 'img',
   },
@@ -147,7 +147,7 @@ const teaserNews = {
   media: {
     href: 'https://github.com/sparkdesignsystem/spark-design-system/releases',
     mediaLinkElement: 'a',
-    imgAlt: 'Go to News',
+    imgAlt: 'Decorative illustrations of mail and notifications.',
     imgSrc: newsMedia,
     mediaVariant: 'img',
   },
@@ -226,12 +226,12 @@ const IndexPage = () => (
           </SprkStackItem>
 
           <SprkStackItem>
-            <SprkLink
-              href="https://github.com/sparkdesignsystem/spark-design-system/blob/main/CONTRIBUTING.md"
+            <SprkButton
+              href="https://github.com/sparkdesignsystem/spark-design-system/blob/master/CONTRIBUTING.md"
               variant="secondary"
             >
               Learn More
-            </SprkLink>
+            </SprkButton>
           </SprkStackItem>
         </SprkStack>
       </SprkStackItem>

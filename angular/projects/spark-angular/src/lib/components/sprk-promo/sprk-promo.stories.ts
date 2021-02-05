@@ -2,8 +2,6 @@ import { storyWrapper } from '../../../../../../.storybook/helpers/storyWrapper'
 import { SprkPromoModule } from './sprk-promo.module';
 import { SprkPromoComponent } from './sprk-promo.component';
 import { markdownDocumentationLinkBuilder } from '../../../../../../../storybook-utilities/markdownDocumentationLinkBuilder';
-import { RouterModule } from '@angular/router';
-import { APP_BASE_HREF } from '@angular/common';
 
 export default {
   title: 'Components/Promo',
@@ -20,16 +18,7 @@ export default {
 };
 
 const modules = {
-  imports: [
-    SprkPromoModule,
-    RouterModule.forRoot([
-      {
-        path: 'iframe.html',
-        component: SprkPromoComponent,
-      },
-    ]),
-  ],
-  providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
+  imports: [SprkPromoModule],
 };
 
 export const defaultStory = () => ({
